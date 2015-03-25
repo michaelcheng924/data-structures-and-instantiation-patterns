@@ -10,12 +10,22 @@ var Queue = function(){
   // Implement the methods below
 
   someInstance.enqueue = function(value){
+    storage[end] = value;
+    end++;
   };
 
   someInstance.dequeue = function(){
+    var result = storage[start];
+    if(someInstance.size()){
+      delete storage[start];
+      start++;
+    }
+
+    return result;
   };
 
   someInstance.size = function(){
+    return end - start;
   };
 
   return someInstance;
