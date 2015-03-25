@@ -3,24 +3,21 @@ var Stack = function() {
   // but try not not reference your old code in writing the new style.
   this.storage = {};
   this.count = 0;
-
-  Stack.prototype.constructor = Stack;
+  
 };
 
-Stack.prototype = {
-  push: function(value) {
-    this.storage[this.count] = value;
-    this.count++;
-  },
-  pop: function() {
-    this.count && this.count--;
-    var result = this.storage[this.count];
-    delete this.storage[this.count];
-    return result;
-  },
-  size: function() {
-    return this.count;
-  }
+Stack.prototype.push = function(value) {
+  this.storage[this.count] = value;
+  this.count++;
 };
 
+Stack.prototype.pop = function() {
+  this.count && this.count--;
+  var result = this.storage[this.count];
+  delete this.storage[this.count];
+  return result;
+};
 
+Stack.prototype.size = function() {
+  return this.count;
+};
