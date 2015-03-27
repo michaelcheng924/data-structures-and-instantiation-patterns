@@ -24,8 +24,7 @@ treeMethods.contains = function(target){
   var walkTree = function(node) {
     if (node.value === target) {
       contains = true;
-    }
-    if (node.children.length) {
+    } else if (node.children.length) {
       for (var i = 0; i < node.children.length; i++) {
         walkTree(node.children[i]);
       }
