@@ -36,11 +36,20 @@ describe('graph', function() {
     expect(graph.hasEdge('penguins', 'kittens')).to.equal(false);
   });
 
-  it('should remove edges between nodes', function() {
+  it('should find edges if the arguments passed are swapped', function() {
     graph.addNode('apples');
     graph.addNode('satsumas');
     graph.addEdge('satsumas', 'apples');
     expect(graph.hasEdge('apples', 'satsumas')).to.equal(true);
+  });
+
+  it('should remove edges between nodes', function() {
+    graph.addNode('dogs');
+    graph.addNode('cats');
+    graph.addEdge('dogs', 'cats');
+    graph.removeEdge('dogs', 'cats');
+    expect(graph.hasEdge('dogs', 'cats')).to.equal(false);
+    expect(graph.hasEdge('cats', 'dogs')).to.equal(false);
   });
 
   it('should execute a callback on each node in the graph', function() {
