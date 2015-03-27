@@ -4,7 +4,8 @@ var Tree = function(value){
 
   // your code here
 
-  newTree.children = null;  // fix me
+  newTree.children = [];  
+  _.extend(newTree, treeMethods);
 
   return newTree;
 };
@@ -14,11 +15,25 @@ var Tree = function(value){
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
-
+  this.children.push(Tree(value));
 };
 
 treeMethods.contains = function(target){
+  var contains = false;
 
+  var walkTree = function(node) {
+    if (node.value === target) {
+      contains = true;
+    }
+    if (node.children.length > 0) {
+      for (var i = 0; i < node.children.length; i++) {
+        walkTree(node.children[i]);
+      }
+    }
+  };
+  walkTree(this);
+
+  return contains;
 };
 
 
