@@ -31,9 +31,8 @@ BinarySearchTree.prototype.contains = function(target){
   var walkTree = function(tree) {
     if (tree.value === target) {
       contains = true;
-    } 
-    if (tree.left || tree.right) {
-      walkTree(tree.left || tree.right);
+    } else if (tree.left || tree.right) {
+      walkTree(tree.right || tree.left);
     }
   };
   walkTree(this);
