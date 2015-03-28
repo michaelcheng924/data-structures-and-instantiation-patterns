@@ -41,8 +41,12 @@ HashTable.prototype.insert = function(k, v){
   // If key was not found in the bucket, create a new key/value array in the bucket
   if(!keyFound){
     bucket.push([k, v]);
+
+    // Increment count for resizing
     this._count++;
+    // If count reaches 75% of total array, call resize function
     if (this._count >= this._limit * 0.75) {
+      // Call resize function, passing in twice the length of the total array
       this.resize(this._limit * 2);
     }
   }  
@@ -127,10 +131,9 @@ HashTable.prototype.resize = function(newSize) {
     if (!bucket) {
       return;
     }
-    for (var i = 0; i < bucket.length; i++) {
-      var tuple = bucket[i];
+    _.each(bucket, function(tuple) {
       this.insert(tuple[0], tuple[1]);
-    }
+    }.bind(this));
   }.bind(this));
 };
 
