@@ -58,8 +58,12 @@ HashTable.prototype.retrieve = function(k){
 
   // If a bucket exists, check each key/value array for the passed in key
   for(var i=0; i<bucket.length; i++){
-    // If the passed in key is found, return the value associated with that key
-    if(bucket[i][0] === k) {
+
+    // Set tuple equal to each key/value array within the bucket
+    var tuple = bucket[i];
+
+    // If tuple contains the passed in key, return the value associated with that key
+    if(tuple[0] === k) {
       return bucket[i][1];
     }
   }
@@ -70,22 +74,34 @@ HashTable.prototype.retrieve = function(k){
 };
 
 HashTable.prototype.remove = function(k){
+
+  // Generates index within array size for the given key
   var i = getIndexBelowMaxForKey(k, this._limit);
 
+  // Sets bucket variable to the index in the total array
   var bucket = this._storage.get(i);
 
+  // If no bucket exists there, return null
   if (!bucket) {
     return null;
   }
 
+  // If a bucket exists, check each key/value array for the passed in key
   for (var i = 0; i < bucket.length; i++) {
+    
+    // Store tuple within a tuple variable
     var tuple = bucket[i];
+
+    // If tuple contains the passed in key, delete the tuple
     if (tuple[0] === k) {
       bucket.splice(i, 1);
     }
+
+    // Return the value of the tuple that was deleted
     return tuple[1];
   }
 
+  // If the passed in key is not in the bucket, return null
   return null;
 };
 
