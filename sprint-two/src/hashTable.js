@@ -104,10 +104,13 @@ HashTable.prototype.remove = function(k){
     // If tuple contains the passed in key, delete the tuple
     if (tuple[0] === k) {
       bucket.splice(i, 1);
+
+      // Decrease count for resizing
       this._count--;
+      // If count reaches 25% of total array, call resize function
       if (this._count < this._limit * 0.25) {
-        this._limit = this._limit / 2;
-        this._storage = LimitedArray(this._limit);
+        // Call resize function, passing in half the length of the total array
+        this.resize(this._limit / 2);
       }
 
     }
@@ -121,19 +124,28 @@ HashTable.prototype.remove = function(k){
 };
 
 HashTable.prototype.resize = function(newSize) {
+  // Store the current array
   var temp = this._storage;
+  // Store the new size
   this._limit = newSize;
+  // Create the resized array
   this._storage = LimitedArray(newSize);
 
+  // Reset the count
   this._count = 0;
   
+  // Iterate through each bucket in the stored array
   temp.each(function(bucket) {
+    // If no bucket is found, move on
     if (!bucket) {
       return;
     }
+    // Iterate through each tuple
     _.each(bucket, function(tuple) {
+      // Insert each tuple into the new, resized array
       this.insert(tuple[0], tuple[1]);
     }.bind(this));
+    // Bind context to "this"
   }.bind(this));
 };
 
