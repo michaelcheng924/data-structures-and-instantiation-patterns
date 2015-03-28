@@ -1,6 +1,7 @@
 var HashTable = function(){
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this._count = 0;
 };
 
 HashTable.prototype.insert = function(k, v){
@@ -40,6 +41,10 @@ HashTable.prototype.insert = function(k, v){
   // If key was not found in the bucket, create a new key/value array in the bucket
   if(!keyFound){
     bucket.push([k, v]);
+    this._count++;
+    if (this._count >= this._limit * 0.75) {
+      this.resize(this._limit * 2);
+    }
   }  
 };
 
@@ -95,6 +100,12 @@ HashTable.prototype.remove = function(k){
     // If tuple contains the passed in key, delete the tuple
     if (tuple[0] === k) {
       bucket.splice(i, 1);
+      this._count--;
+      if (this._count < this._limit * 0.25) {
+        this._limit = this._limit / 2;
+        this._storage = LimitedArray(this._limit);
+      }
+
     }
 
     // Return the value of the tuple that was deleted
@@ -103,6 +114,24 @@ HashTable.prototype.remove = function(k){
 
   // If the passed in key is not in the bucket, return null
   return null;
+};
+
+HashTable.prototype.resize = function(newSize) {
+  var temp = this._storage;
+  this._limit = newSize;
+  this._storage = LimitedArray(newSize);
+
+  this._count = 0;
+  
+  temp.each(function(bucket) {
+    if (!bucket) {
+      return;
+    }
+    for (var i = 0; i < bucket.length; i++) {
+      var tuple = bucket[i];
+      this.insert(tuple[0], tuple[1]);
+    }
+  }.bind(this));
 };
 
 
