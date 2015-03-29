@@ -68,14 +68,18 @@ BinarySearchTree.prototype.contains = function(target){
 
 BinarySearchTree.prototype.depthFirstLog = function(callback){
 
+  // Recursively walk tree to perform callback on each node value
   var walkTree = function(tree) {
-    callback(tree.value); ;
+
+    // Perform callback on node value
+    callback(tree.value);
+
+    // If subtree nodes exist
     if (tree.left || tree.right) {
+      // Repeat walkTree for each node value
       walkTree(tree.left || tree.right);
     }
   };
+  // Initialize walkTree function with top node
   walkTree(this);
 };
-/*
- * Complexity: What is the time complexity of the above functions?
- */
