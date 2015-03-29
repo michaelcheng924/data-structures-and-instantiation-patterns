@@ -33,14 +33,16 @@ var LinkedList = function(){
     // If tail exists
     } else {
       // Set value before head to a new Node
-      this.head.next = new Node(value);
+      this.head.previous = new Node(value);
       // Move head to be at the front
-      this.head = this.head.next;
+      this.head = this.head.previous;
     }
   };
 
   list.removeHead = function(){
+    // Store value at head
     var temp = this.head.value;
+    // 
     this.head = this.head.next;
     return temp;
   };
@@ -62,6 +64,7 @@ var Node = function(value){
 
   node.value = value;
   node.next = null;
+  node.previous = null;
 
   return node;
 };
