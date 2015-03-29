@@ -148,9 +148,3 @@ HashTable.prototype.resize = function(newSize) {
     // Bind context to "this"
   }.bind(this));
 };
-
-
-
-/*
- * Complexity: What is the time complexity of the above functions?
- */
