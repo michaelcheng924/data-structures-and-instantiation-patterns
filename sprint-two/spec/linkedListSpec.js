@@ -38,6 +38,8 @@ describe('linkedList', function() {
     expect(linkedList.head.value).to.equal(5);
   });
 
+  
+
   it("should return the value of the former head when removeHead is called", function(){
     linkedList.addToTail(4);
     expect(linkedList.removeHead()).to.equal(4);

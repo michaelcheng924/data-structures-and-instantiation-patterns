@@ -7,7 +7,7 @@ var LinkedList = function(){
   list.head = null;
   list.tail = null;
 
-  list.addToTail = function(value){
+  list.addToTail = function(value) {
     // If no head value exists
     if (this.head === null){
       // Create a new Node for head
@@ -23,7 +23,7 @@ var LinkedList = function(){
     }
   };
 
-  list.addToHead = function(value){
+  list.addToHead = function(value) {
     // If no tail value exists
     if (this.tail === null) {
       // Create a new Node for tail
@@ -39,7 +39,7 @@ var LinkedList = function(){
     }
   };
 
-  list.removeHead = function(){
+  list.removeHead = function() {
     // Store value at head
     var temp = this.head.value;
     // Change head value to next value
@@ -48,9 +48,18 @@ var LinkedList = function(){
     return temp;
   };
 
-  list.contains = function(target){
+  list.removeTail = function() {
+    // Store value at tail
+    var temp = this.tail.value;
+    // Change tail to previous value
+    this.tail = this.tail.previous;
+    // Return original tail value
+    return temp;
+  };
+
+  list.contains = function(target) {
     for(var key in this){
-      if(_.contains(this[key],target)){
+      if(_.contains(this[key],target)) {
         return true;
       }
     }
