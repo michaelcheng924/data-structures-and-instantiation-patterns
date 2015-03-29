@@ -54,7 +54,7 @@ BinarySearchTree.prototype.contains = function(target){
       // Change contains to true, end function
       contains = true;
     // If right or left nodes exist
-    } else if (tree.left || tree.right) {
+    } else if (tree.left) {
       // Repeat walkTree for subtree nodes
       walkTree(tree.right || tree.left);
     }
