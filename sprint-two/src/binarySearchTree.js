@@ -43,18 +43,29 @@ BinarySearchTree.prototype.insert = function(value){
 };
 
 BinarySearchTree.prototype.contains = function(target){
+
+  // Initialize contains variable to false
   var contains = false;
 
+  // Resursively walk down tree to find target value
   var walkTree = function(tree) {
+    // If node value equals target
     if (tree.value === target) {
+      // Change contains to true, end function
       contains = true;
+    // If right or left nodes exist
     } else if (tree.left || tree.right) {
+      // Repeat walkTree for subtree nodes
       walkTree(tree.right || tree.left);
     }
   };
+  // Initialize walkTree function with top node
   walkTree(this);
+
+  // Return boolean for whether tree contains target false
   return contains;
 };
+
 BinarySearchTree.prototype.depthFirstLog = function(callback){
 
   var walkTree = function(tree) {
