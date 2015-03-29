@@ -42,8 +42,9 @@ var LinkedList = function(){
   list.removeHead = function(){
     // Store value at head
     var temp = this.head.value;
-    // 
+    // Change head value to next value
     this.head = this.head.next;
+    // Return original value of head
     return temp;
   };
 
