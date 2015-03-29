@@ -25,12 +25,18 @@ var LinkedList = function(){
 
   list.addToHead = function(value){
     // If no tail value exists
-    // if ()
+    if (this.tail === null) {
       // Create a new Node for tail
+      this.tail = new Node(value);
       // Set head equal to tail
+      this.head = this.tail;
     // If tail exists
+    } else {
       // Set value before head to a new Node
+      this.head.next = new Node(value);
       // Move head to be at the front
+      this.head = this.head.next;
+    }
   };
 
   list.removeHead = function(){
@@ -56,7 +62,6 @@ var Node = function(value){
 
   node.value = value;
   node.next = null;
-  node.previous = null;
 
   return node;
 };
